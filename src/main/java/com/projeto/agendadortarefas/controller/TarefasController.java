@@ -35,4 +35,26 @@ public class TarefasController {
         List<TarefasDto> tarefas = tarefaService.buscaTarefasPorEmail(token);
         return ResponseEntity.ok(tarefas);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TarefasDto> atualizarTarefaCompleta(
+            @PathVariable String id,
+            @RequestBody TarefasDto dto,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(tarefaService.atualizarTarefa(id, dto, token));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TarefasDto> atualizarTarefaParcial(
+            @PathVariable String id,
+            @RequestBody TarefasDto dto,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(tarefaService.atualizarParcial(id, dto, token));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarTarefaPorId(@PathVariable String id) {
+        tarefaService.deletarTarefaPorId(id);
+        return ResponseEntity.noContent().build();
+    }
 }
